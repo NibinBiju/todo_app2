@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TodoModel {
-  static List<TodoModel> mytodo = [
-    TodoModel(
-        title: 'homework',
-        description: 'ckkahbkshkajhka',
-        date: '12-10-2023',
-        color: Colors.blueAccent)
-  ];
-
+  static List<TodoModel> mytodo = [];
   final String title;
   final String description;
   final String date;

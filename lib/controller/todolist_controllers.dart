@@ -1,18 +1,19 @@
-import 'package:hive/hive.dart';
 import 'package:todo_app2/controller/hive_controller.dart';
 import 'package:todo_app2/model/todo_model.dart';
 
 class TodolistController {
+  List<TodoModel> mytodo = [
+    TodoModel(title: 'name', description: 'description', date: 'date'),
+  ];
   Dbhive dbhive = Dbhive();
-  final db = Hive.box('mytodo');
 
   void addata(TodoModel todoModel) {
-    TodoModel.mytodo.add(todoModel);
+    mytodo.add(todoModel);
     dbhive.addata();
   }
 
   void delete(int index) {
-    TodoModel.mytodo.removeAt(index);
+    mytodo.removeAt(index);
     dbhive.addata();
   }
 }

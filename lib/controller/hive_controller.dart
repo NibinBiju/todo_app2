@@ -2,13 +2,21 @@ import 'package:hive/hive.dart';
 import 'package:todo_app2/model/todo_model.dart';
 
 class Dbhive {
-  final db = Hive.box('mytodo');
+  final _db = Hive.box('mytodo');
+
+  void intialData() {
+    TodoModel.mytodo = [
+      TodoModel(title: 'title', description: 'description', date: 'date')
+    ];
+  }
 
   void addata() {
-    db.put('todolist', TodoModel.mytodo);
+    _db.put('TODOLIST', TodoModel.mytodo);
+    print('added');
   }
 
   void loaddata() {
-    TodoModel.mytodo = db.get('todolist');
+    TodoModel.mytodo = _db.get('TODOLIST');
+    print('load');
   }
 }

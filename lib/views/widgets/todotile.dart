@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
-import 'package:todo_app2/model/todo_model.dart';
 import 'package:todo_app2/views/decription.dart';
 
 class TodoTile extends StatelessWidget {
@@ -28,9 +27,9 @@ class TodoTile extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
             return Decription(
-              title: TodoModel.mytodo[index].title,
-              decription: TodoModel.mytodo[index].description,
-              date: TodoModel.mytodo[index].date,
+              title: todolistController.mytodo[index].title,
+              decription: todolistController.mytodo[index].description,
+              date: todolistController.mytodo[index].date,
             );
           },
         ));
@@ -39,7 +38,7 @@ class TodoTile extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         height: 200,
         decoration: BoxDecoration(
-          color: selectedColor ?? Colors.red,
+          color: selectedColor ?? Colors.white,
           borderRadius: BorderRadius.circular(26),
         ),
         child: Column(

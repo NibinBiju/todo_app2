@@ -16,6 +16,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Dbhive dbhive = Dbhive();
 
+  //referance of hive box
+  final _db = Hive.box('mytodo');
+
+  @override
+  void initState() {
+    if (_db.get('TODOLIST') == null) {
+      dbhive.intialData();
+      print('initial');
+    } else {
+      dbhive.loaddata();
+    }
+    super.initState();
+  }
+
   final titletextcontroller = TextEditingController();
   final decriptextcontroller = TextEditingController();
   final datetextcontroller = TextEditingController();
@@ -23,20 +37,6 @@ class _HomePageState extends State<HomePage> {
   DateTime date = DateTime.now();
 
   int seleectedIndex = 0;
-
-  final db = Hive.box('mytodo');
-
-  @override
-  void initState() {
-    if (db.get('todolist') == null) {
-      Image.network(
-          'https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png');
-    } else {
-      dbhive.loaddata();
-    }
-
-    super.initState();
-  }
 
   TodolistController todolistController = TodolistController();
 
@@ -65,18 +65,18 @@ class _HomePageState extends State<HomePage> {
                           todolistController.delete(index);
                         });
                       },
-                      title: TodoModel.mytodo[index].title
+                      title: todolistController.mytodo[index].title
                           .toString()
                           .toUpperCase(),
-                      decription: TodoModel.mytodo[index].description,
-                      date: TodoModel.mytodo[index].date,
-                      selectedColor: TodoModel.mytodo[index].color,
+                      decription: todolistController.mytodo[index].description,
+                      date: todolistController.mytodo[index].date,
+                      selectedColor: todolistController.mytodo[index].color,
                     );
                   },
                   separatorBuilder: (context, index) => const SizedBox(
                         height: 20,
                       ),
-                  itemCount: TodoModel.mytodo.length),
+                  itemCount: todolistController.mytodo.length),
             ),
           ],
         ),
