@@ -5,8 +5,10 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:todo_app2/views/home.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   //intialize flutter
   await Hive.initFlutter();
+  // if(!Hive.isAdapterRegistered())
 
   //open database
   var box = await Hive.openBox('mytodo');

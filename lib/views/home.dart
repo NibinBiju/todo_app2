@@ -4,6 +4,7 @@ import 'package:todo_app2/controller/hive_controller.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
 import 'package:todo_app2/model/todo_model.dart';
 import 'package:todo_app2/utils/colors/colors_contant.dart';
+import 'package:todo_app2/views/widgets/color_picker.dart';
 import 'package:todo_app2/views/widgets/todotile.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   DateTime date = DateTime.now();
 
-  int seleectedIndex = 0;
+  int selectedIndex = 0;
 
   TodolistController todolistController = TodolistController();
 
@@ -108,12 +109,11 @@ class _HomePageState extends State<HomePage> {
                       //textfield for title
                       child: TextField(
                         style: const TextStyle(
-                          fontSize: 32,
+                          fontSize: 28,
                         ),
                         controller: titletextcontroller,
                         decoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
+                            border: InputBorder.none, labelText: 'Title'),
                       ),
                     ),
                     const SizedBox(
@@ -127,11 +127,13 @@ class _HomePageState extends State<HomePage> {
                       //textfield for description
 
                       child: TextField(
-                        maxLines: 8,
+                        style: const TextStyle(
+                          fontSize: 23,
+                        ),
+                        maxLines: 4,
                         controller: decriptextcontroller,
                         decoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
+                            border: InputBorder.none, labelText: 'Description'),
                       ),
                     ),
                     const SizedBox(
@@ -148,6 +150,7 @@ class _HomePageState extends State<HomePage> {
                       child: TextField(
                         controller: datetextcontroller,
                         decoration: InputDecoration(
+                          labelText: 'Date',
                           filled: true,
                           border: InputBorder.none,
                           suffixIcon: IconButton(
@@ -187,22 +190,16 @@ class _HomePageState extends State<HomePage> {
                         scrollDirection: Axis.horizontal,
                         itemCount: ColorsConstant.color.length,
                         itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              selectedColor = ColorsConstant.color[index];
+                          return ColorPicker(
+                            index: index,
+                            selectedIndex: selectedIndex,
+                            onchangeBorder: () {
+                              setState(() {
+                                selectedIndex = index;
+                                selectedColor = ColorsConstant.color[index];
+                                Future.delayed(Duration(seconds: 3));
+                              });
                             },
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      color: ColorsConstant.color[index],
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 2,
-                                      )),
-                                )),
                           );
                         },
                       ),
@@ -242,10 +239,11 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               todolistController.addata(
                                 TodoModel(
-                                    title: titletextcontroller.text,
-                                    description: decriptextcontroller.text,
-                                    date: datetextcontroller.text,
-                                    color: selectedColor),
+                                  title: titletextcontroller.text,
+                                  description: decriptextcontroller.text,
+                                  date: datetextcontroller.text,
+                                  color: selectedColor,
+                                ),
                               );
                             });
 
