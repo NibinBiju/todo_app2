@@ -5,13 +5,11 @@ class ColorPicker extends StatelessWidget {
   const ColorPicker({
     super.key,
     required this.index,
-    // required this.selectedColor,
     required this.selectedIndex,
     required this.onchangeBorder,
   });
 
   final int index;
-  // Color selectedColor;
   final int selectedIndex;
   final VoidCallback onchangeBorder;
 

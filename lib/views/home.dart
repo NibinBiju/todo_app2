@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:todo_app2/controller/hive_controller.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
 import 'package:todo_app2/model/todo_model.dart';
@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //instance for dbhive class
   Dbhive dbhive = Dbhive();
 
   //referance of hive box
@@ -31,16 +32,20 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  //controllers for textfield
   final titletextcontroller = TextEditingController();
   final decriptextcontroller = TextEditingController();
   final datetextcontroller = TextEditingController();
 
+  //instance for datetime
   DateTime date = DateTime.now();
 
   int selectedIndex = 0;
 
+  //instance for todocontroller class
   TodolistController todolistController = TodolistController();
 
+  //variable for container color
   Color selectedColor = Colors.white;
 
   @override
@@ -196,9 +201,8 @@ class _HomePageState extends State<HomePage> {
                             onchangeBorder: () {
                               setState(() {
                                 selectedIndex = index;
-                                selectedColor = ColorsConstant.color[index];
-                                Future.delayed(Duration(seconds: 3));
                               });
+                              selectedColor = ColorsConstant.color[index];
                             },
                           );
                         },

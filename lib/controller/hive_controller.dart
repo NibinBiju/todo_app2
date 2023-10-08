@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:todo_app2/model/todo_model.dart';
 
 class Dbhive {
