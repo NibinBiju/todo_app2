@@ -24,11 +24,11 @@ class ColorPicker extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 color: ColorsConstant.color[index],
-                border: selectedIndex == index
-                    ? Border.all(
-                        width: 3,
-                      )
-                    : null),
+                border: Border.all(
+                    width: 3,
+                    color: selectedIndex == index
+                        ? Colors.black
+                        : Colors.transparent)),
           )),
     );
   }

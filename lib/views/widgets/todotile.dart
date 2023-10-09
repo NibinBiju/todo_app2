@@ -24,15 +24,18 @@ class TodoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return Decription(
-              title: todolistController.mytodo[index].title,
-              decription: todolistController.mytodo[index].description,
-              date: todolistController.mytodo[index].date,
-            );
-          },
-        ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return Decription(
+                title: title,
+                decription: decription,
+                date: date,
+              );
+            },
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(12),

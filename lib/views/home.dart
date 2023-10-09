@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive/hive.dart';
 import 'package:todo_app2/controller/hive_controller.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
 import 'package:todo_app2/model/todo_model.dart';
@@ -17,18 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //instance for dbhive class
   Dbhive dbhive = Dbhive();
-
-  //referance of hive box
   final _db = Hive.box('mytodo');
 
   @override
   void initState() {
-    if (_db.get('TODOLIST') == null) {
-      dbhive.intialData();
-      print('initial');
+    dbhive.loadData();
+    if (_db.get('mytodo') == null) {
+      print('empty');
     } else {
-      dbhive.loaddata();
+      dbhive.loadData();
     }
+
     super.initState();
   }
 
@@ -47,6 +46,8 @@ class _HomePageState extends State<HomePage> {
 
   //variable for container color
   Color selectedColor = Colors.white;
+
+  bool border = false;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 5),
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.purple.shade200,
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: Column(
@@ -195,15 +196,17 @@ class _HomePageState extends State<HomePage> {
                         scrollDirection: Axis.horizontal,
                         itemCount: ColorsConstant.color.length,
                         itemBuilder: (context, index) {
-                          return ColorPicker(
-                            index: index,
-                            selectedIndex: selectedIndex,
-                            onchangeBorder: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
-                              selectedColor = ColorsConstant.color[index];
-                            },
+                          return StatefulBuilder(
+                            builder: (context, setState) => ColorPicker(
+                              index: index,
+                              selectedIndex: selectedIndex,
+                              onchangeBorder: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                  selectedColor = ColorsConstant.color[index];
+                                });
+                              },
+                            ),
                           );
                         },
                       ),

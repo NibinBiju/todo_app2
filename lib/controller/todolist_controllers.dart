@@ -9,11 +9,11 @@ class TodolistController {
 
   void addata(TodoModel todoModel) {
     mytodo.add(todoModel);
-    dbhive.addata();
+    dbhive.updateData();
   }
 
   void delete(int index) {
     mytodo.removeAt(index);
-    dbhive.addata();
+    dbhive.updateData();
   }
 }

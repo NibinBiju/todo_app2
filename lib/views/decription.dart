@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:todo_app2/utils/colors/colors_contant.dart';
 
 class Decription extends StatelessWidget {
-  const Decription(
-      {super.key,
-      required this.title,
-      required this.decription,
-      required this.date});
+  const Decription({
+    super.key,
+    required this.title,
+    required this.decription,
+    required this.date,
+  });
 
   final String title;
   final String decription;
