@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    dbhive.loadData();
-    if (_db.get('mytodo') == null) {
+    if (_db.get('TODOLIST') == null) {
       print('empty');
     } else {
       dbhive.loadData();
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   TodolistController todolistController = TodolistController();
 
   //variable for container color
-  Color selectedColor = Colors.white;
+  Color? selectedColor;
 
   bool border = false;
 
@@ -58,32 +57,33 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Expanded(
               child: ListView.separated(
-                  //todo container
-                  itemBuilder: (context, index) {
-                    return TodoTile(
-                      index: index,
-                      onchanged: () {
-                        setState(() {
-                          todolistController.delete(index);
-                        });
-                      },
-                      title: todolistController.mytodo[index].title
-                          .toString()
-                          .toUpperCase(),
-                      decription: todolistController.mytodo[index].description,
-                      date: todolistController.mytodo[index].date,
-                      selectedColor: todolistController.mytodo[index].color,
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 20,
-                      ),
-                  itemCount: todolistController.mytodo.length),
+                //todo container
+                itemBuilder: (context, index) {
+                  return TodoTile(
+                    index: index,
+                    onchanged: () {
+                      setState(() {
+                        todolistController.delete(index);
+                      });
+                    },
+                    title: TodolistController.mytodo[index].title
+                        .toString()
+                        .toUpperCase(),
+                    description: TodolistController.mytodo[index].description,
+                    date: TodolistController.mytodo[index].date,
+                    selectedColor: selectedColor,
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 20,
+                ),
+                itemCount: TodolistController.mytodo.length,
+              ),
             ),
           ],
         ),
@@ -201,10 +201,13 @@ class _HomePageState extends State<HomePage> {
                               index: index,
                               selectedIndex: selectedIndex,
                               onchangeBorder: () {
-                                setState(() {
-                                  selectedIndex = index;
-                                  selectedColor = ColorsConstant.color[index];
-                                });
+                                setState(
+                                  () {
+                                    selectedIndex = index;
+                                    selectedColor =
+                                        Color(ColorsConstant.color[index]);
+                                  },
+                                );
                               },
                             ),
                           );
@@ -249,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                   title: titletextcontroller.text,
                                   description: decriptextcontroller.text,
                                   date: datetextcontroller.text,
-                                  color: selectedColor,
+                                  colorIndex: selectedIndex,
                                 ),
                               );
                             });

@@ -9,7 +9,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //intialize flutter
   await Hive.initFlutter();
-  Hive.registerAdapter(TodoModelAdapter());
+  if (Hive.isAdapterRegistered(1)) {
+  } else {
+    Hive.registerAdapter(TodoModelAdapter());
+  }
+
   //open box
   var box = await Hive.openBox('mytodo');
   runApp(const MyApp());

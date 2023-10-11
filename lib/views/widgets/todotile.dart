@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
+import 'package:todo_app2/model/todo_model.dart';
 import 'package:todo_app2/views/decription.dart';
 
 class TodoTile extends StatelessWidget {
-  TodoTile(
-      {super.key,
-      required this.index,
-      required this.onchanged,
-      required this.title,
-      required this.decription,
-      required this.date,
-      this.selectedColor});
+  TodoTile({
+    super.key,
+    required this.index,
+    required this.onchanged,
+    required this.title,
+    required this.description,
+    required this.date,
+    this.selectedColor,
+  });
 
   final int index;
   final VoidCallback onchanged;
   final TodolistController todolistController = TodolistController();
   final String title;
-  final String decription;
+  final String description;
   final String date;
   final Color? selectedColor;
 
@@ -30,7 +32,7 @@ class TodoTile extends StatelessWidget {
             builder: (context) {
               return Decription(
                 title: title,
-                decription: decription,
+                decription: description,
                 date: date,
               );
             },
@@ -54,18 +56,23 @@ class TodoTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //title
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
+                    SizedBox(
+                      width: 130,
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                     SizedBox(
                       width: 100,
                       //description
                       child: Text(
-                        decription,
+                        description,
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w500,
@@ -76,14 +83,30 @@ class TodoTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                //delete
-                IconButton(
-                  onPressed: onchanged,
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 34,
-                  ),
-                  iconSize: 28,
+                Row(
+                  children: [
+                    //share button
+                    IconButton(
+                        onPressed: () {
+                          todolistController.shareData(TodoModel(
+                              title: title,
+                              description: description,
+                              date: date));
+                        },
+                        icon: const Icon(
+                          Icons.share,
+                          size: 31,
+                        )),
+
+                    //delete
+                    IconButton(
+                      onPressed: onchanged,
+                      icon: const Icon(
+                        Icons.delete,
+                        size: 34,
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),

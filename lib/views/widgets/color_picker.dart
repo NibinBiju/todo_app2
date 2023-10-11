@@ -23,7 +23,7 @@ class ColorPicker extends StatelessWidget {
             width: 80,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
-                color: ColorsConstant.color[index],
+                color: Color(ColorsConstant.color[index]),
                 border: Border.all(
                     width: 3,
                     color: selectedIndex == index

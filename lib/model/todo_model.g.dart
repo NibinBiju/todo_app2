@@ -20,7 +20,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       title: fields[0] as String,
       description: fields[1] as String,
       date: fields[2] as String,
-      color: fields[3] as Color?,
+      colorIndex: fields[3] as int?,
     );
   }
 
@@ -35,7 +35,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       ..writeByte(2)
       ..write(obj.date)
       ..writeByte(3)
-      ..write(obj.color);
+      ..write(obj.colorIndex);
   }
 
   @override
