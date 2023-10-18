@@ -17,6 +17,7 @@ class Dbhive {
               title: e.title,
               description: e.description,
               date: e.date,
+              colorSelected: e.colorSelected,
             ))
         .toList();
     print('load');

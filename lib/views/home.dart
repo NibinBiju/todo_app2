@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
 
   int selectedIndex = 0;
   int selectedColorIndex = 0;
-
   //instance for todocontroller class
   TodolistController todolistController = TodolistController();
 
@@ -66,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return TodoTile(
                     index: index,
-                    selectedIndex: selectedColorIndex,
+                    selectedIndex: selectedIndex,
                     onchanged: () {
                       setState(() {
                         todolistController.delete(index);
@@ -204,9 +203,11 @@ class _HomePageState extends State<HomePage> {
                           return StatefulBuilder(
                             builder: (context, setState) => InkWell(
                               onTap: () {
-                                selectedColorIndex = index;
+                                selectedIndex = index;
+                                selectedColorIndex =
+                                    ColorsConstant.color[index];
                                 selectedColor =
-                                    ColorsConstant.color[selectedColorIndex];
+                                    Color(ColorsConstant.color[index]);
                                 setState(() {});
                               },
                               child: Padding(
@@ -215,10 +216,11 @@ class _HomePageState extends State<HomePage> {
                                     width: 80,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(18),
-                                        color: ColorsConstant.color[index],
+                                        color:
+                                            Color(ColorsConstant.color[index]),
                                         border: Border.all(
                                             width: 3,
-                                            color: selectedColorIndex == index
+                                            color: selectedIndex == index
                                                 ? Colors.black
                                                 : Colors.transparent)),
                                   )),
@@ -265,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                   title: titletextcontroller.text,
                                   description: decriptextcontroller.text,
                                   date: datetextcontroller.text,
-                                  colorIndex: selectedIndex,
+                                  colorSelected: selectedColorIndex,
                                 ),
                               );
                             });

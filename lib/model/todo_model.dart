@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'todo_model.g.dart';
 
@@ -10,12 +11,12 @@ class TodoModel {
   @HiveField(2)
   final String date;
   @HiveField(3)
-  final int? colorIndex;
+  final int? colorSelected;
 
   TodoModel({
     required this.title,
     required this.description,
     required this.date,
-    this.colorIndex,
+    this.colorSelected,
   });
 }
