@@ -7,14 +7,17 @@ class Dbhive {
 
   void updateData() {
     _db.put('TODOLIST', TodolistController.mytodo);
-    print('');
+    // print('');
   }
 
   void loadData() {
     final List mytodo2 = _db.get('TODOLIST');
     TodolistController.mytodo = mytodo2
-        .map((e) =>
-            TodoModel(title: e.title, description: e.description, date: e.date))
+        .map((e) => TodoModel(
+              title: e.title,
+              description: e.description,
+              date: e.date,
+            ))
         .toList();
     print('load');
   }

@@ -20,7 +20,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       title: fields[0] as String,
       description: fields[1] as String,
       date: fields[2] as String,
-      colorIndex: fields[3] as int?,
+      colorIndex: fields[3] as int,
     );
   }
 

@@ -12,6 +12,7 @@ class TodoTile extends StatelessWidget {
     required this.description,
     required this.date,
     this.selectedColor,
+    required this.selectedIndex,
   });
 
   final int index;
@@ -21,6 +22,7 @@ class TodoTile extends StatelessWidget {
   final String description;
   final String date;
   final Color? selectedColor;
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,8 @@ class TodoTile extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         height: 200,
         decoration: BoxDecoration(
-          color: selectedColor ?? Colors.white,
+          color:
+              selectedIndex == index ? selectedColor : Colors.purple.shade300,
           borderRadius: BorderRadius.circular(26),
         ),
         child: Column(

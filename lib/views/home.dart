@@ -4,7 +4,6 @@ import 'package:todo_app2/controller/hive_controller.dart';
 import 'package:todo_app2/controller/todolist_controllers.dart';
 import 'package:todo_app2/model/todo_model.dart';
 import 'package:todo_app2/utils/colors/colors_contant.dart';
-import 'package:todo_app2/views/widgets/color_picker.dart';
 import 'package:todo_app2/views/widgets/todotile.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   DateTime date = DateTime.now();
 
   int selectedIndex = 0;
+  int selectedColorIndex = 0;
 
   //instance for todocontroller class
   TodolistController todolistController = TodolistController();
@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return TodoTile(
                     index: index,
+                    selectedIndex: selectedColorIndex,
                     onchanged: () {
                       setState(() {
                         todolistController.delete(index);
@@ -93,6 +94,8 @@ class _HomePageState extends State<HomePage> {
           titletextcontroller.text = '';
           decriptextcontroller.text = '';
           datetextcontroller.text = '';
+
+          //bottom sheet
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
             context: context,
@@ -112,6 +115,7 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18),
                       ),
+
                       //textfield for title
                       child: TextField(
                         style: const TextStyle(
@@ -130,8 +134,8 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18),
                       ),
-                      //textfield for description
 
+                      //textfield for description
                       child: TextField(
                         style: const TextStyle(
                           fontSize: 23,
@@ -151,9 +155,10 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18),
                       ),
-                      //textfield for date
 
+                      //textfield for date
                       child: TextField(
+                        keyboardType: TextInputType.none,
                         controller: datetextcontroller,
                         decoration: InputDecoration(
                           labelText: 'Date',
@@ -197,18 +202,26 @@ class _HomePageState extends State<HomePage> {
                         itemCount: ColorsConstant.color.length,
                         itemBuilder: (context, index) {
                           return StatefulBuilder(
-                            builder: (context, setState) => ColorPicker(
-                              index: index,
-                              selectedIndex: selectedIndex,
-                              onchangeBorder: () {
-                                setState(
-                                  () {
-                                    selectedIndex = index;
-                                    selectedColor =
-                                        Color(ColorsConstant.color[index]);
-                                  },
-                                );
+                            builder: (context, setState) => InkWell(
+                              onTap: () {
+                                selectedColorIndex = index;
+                                selectedColor =
+                                    ColorsConstant.color[selectedColorIndex];
+                                setState(() {});
                               },
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: ColorsConstant.color[index],
+                                        border: Border.all(
+                                            width: 3,
+                                            color: selectedColorIndex == index
+                                                ? Colors.black
+                                                : Colors.transparent)),
+                                  )),
                             ),
                           );
                         },
